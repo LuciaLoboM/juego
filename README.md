@@ -1,2 +1,2 @@
 # juego
-Me gustaria hacer el juego del ahorcado. Porque siento que es un juego divertido, al que se le pueden implementar algunas modificaciones, para que sea mas interactivo, o incluso elegir número de jugadores. 
+Escogi programar el juego del ahorcado por ser uno de los propuestos, pero tambien porque siento que es un programa divertido. Me gustaria que se pudiera implementar un modo multijugador para que sea algo mas entretenido, u otra propuesta seria poder dividir las palabras por categorias. Tambien estoy pensando en buscar otro dibujo para marcar las vidas, para hacer el proyecto un poco mas personal.
