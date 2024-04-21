@@ -1,22 +1,21 @@
+#primero definimos la funcion random
+import random
 #menu principal
 #su entrada es el numero de jugadores, y su salida es elegir el inicio del juego 1 o juego 2
-
 def menu1():
-    print("¡Bienvenido!")
+    print("---¡Bienvenido!---")
     print("Introduce 'S' para salir ")
     n_jugadores=int(input("Introduce el numero de jugadores: "))
     if n_jugadores==1:
         inicio1() #llamar a la funcion de un jugador
     elif n_jugadores==2:
         inicio2()#llamar a la funcion de dos jugadores
-
-
     else:
         print("Error \nintentelo de nuevo")
         menu1()
 #inicio del juego de un jugador,
 def inicio1():
-    print ("MODO UN JUGADOR")
+    print ("---MODO UN JUGADOR---")
     print ("Bienvenido")
     print ("¿Quieres continuar?")
     n=int(input("1. si \t 2. no \n"))
@@ -40,8 +39,6 @@ def inicio2():
     else:
         print("Error")
         inicio2()
-#primero definimos la funcion random
-import random
 #despues definimos los dibujos del ahoracado
 AHORCADO = [
     '''
@@ -109,12 +106,66 @@ AHORCADO = [
     =========
     '''
 ]
-#biblioteca de palabras
-palabras = 'bocina comida jugar silla  programacion videojuegos gatos perros ajolote mascota peces flores arbol libros lapiz telefono teclado discos cancion collar anillos sol luna nube juguete españa mexico escuela universidad queretaro hola adios semaforo carro coche moto'.split()
+#biblioteca de palabras, en este apartado voy a añ
+p_numeros=['uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','veinte','treinta','cuarenta','cincuenta','sesenta','ochenta','noventa','cien']
+p_paises=['mexico','egipto','grecia','india','dinamarca','españa','albania','argentina','brasil','colombia','australia','canada','honduras','francia','italia','portugal','marruecos','bolivia,''china','japon','eeuu','alemania','bielorrusia','rusia']
+p_colores=['rojo','amarillo','verde','morado','marron','negro','blanco','rosa','naranja','azul','salmon','coral','gris','violeta','cian']
+p_animales=['leon','elefante','tigre','jirafa','cebra','koala','delfin','aguila','oso','serpierte','hipopotamo','lobo','rinoceronte','mono','chimpance','babuino','puma','panda','gorila','flamenco','nutria','pavo','ajolote','armadillo','puercoespin','guepardo','murcielago','lemur','narval','wombat']
+p_frutas=['manzana','platano','fresa','uva','kiwi','mango','tamarindo','naranja','piña','sandia','melon','cereza']
+p_profesiones=['medico','enfermero','maestro','profesor','cuidador','ingeniero','mecanico','electricista','fontanero','abogado','juez','fiscal','escritor','poeta','musico','cantante','actor','compositor','chef','fotografo','presentador']
+p_deportes=['futbol','baloncesto','tocho','tenis','padel','natacion','atletismo','ciclismo','voleibol','golf','criquet','beisbol','esgrima']
+p_instrumentos=['guitarra','piano','violin','flauta','trompeta','bateria','saxofon','violonchelo','clarinete','xilofono']
+p_en=['agua','fuego','tierra','aire','sol','luna','estrella','viento','rocas','arena']
+p_dificiles=['xorxal','lixivia','pixel','niquel','bucelario','cicuta','yuxtaposicion','fulgido','marmol']
+#hacemos una matriz que contenga todas las palabras anteriores
+palabras = [p_numeros,p_paises,p_colores,p_animales,p_frutas,p_profesiones,p_deportes,p_instrumentos,p_en,p_dificiles]
+#la siguiente funcion simplemente despliegla el menu de palabras que hay
+def menuOpcionesDePalabras():
+    print('-----OPCIONES DE PALABRAS-----')
+    print('1.Números')
+    print('2.Paises')
+    print('3.Colores')
+    print('4.Animales')
+    print('5.Frutas')
+    print('6.Profesiones')
+    print('7.Deportes')
+    print('8.Instrumentos')
+    print('9.Elementos Naturales')
+    print('10.Dificiles')
+    print('11.Aleatorio')
+#la siguiente funcion despliegla el menu de palabras que hay, recoge la elecion del usuario y termina eligiendo la palabra oculta final
+def opcionesDePalabras(palabras):
+    menuOpcionesDePalabras()
+    eleccion=int(input('Elige una opcción: '))
+    if eleccion==1:
+        lista=palabras[0]
+    elif eleccion==2:
+        lista=palabras[1]
+    elif eleccion==3:
+        lista=palabras[2]
+    elif eleccion==4:
+        lista=palabras[3]
+    elif eleccion==5:
+        lista=palabras[4]
+    elif eleccion==6:
+        lista=palabras[5]
+    elif eleccion==7:
+        lista=palabras[6]
+    elif eleccion==8:
+        lista=palabras[7]
+    elif eleccion==9:
+        lista=palabras[8]
+    elif eleccion==10:
+        lista=palabras[9]
+    elif eleccion==11:
+        lista=random.randint(0,len(palabras)-1)
+    else:
+        print('¡¡¡¡¡¡¡¡¡¡error!!!!!!!!!!!')
+    return buscarPalabraAleat(lista)
 #se define una funcion para que busque las palabras como salida y la bibiloteca de palabras como entradas con la palabra random elige una palabra aleatoria de la lista de palabras, poniendo randint hace que obtengamos una palabra en entre el rango que nos da.
-def buscarPalabraAleat(palabras):
-    palabraAleatoria = random.randint(0, len(palabras) - 1)
-    return palabras[palabraAleatoria]
+def buscarPalabraAleat(lista):
+    palabraAleatoria = random.randint(0, len(lista) - 1)
+    return lista[palabraAleatoria]
 #Es una funcion de inicio para definir nuevas variables
 def inicializarJuego(palabra):
     palabraOculta = '_' * len(palabra) #transforma la palabra en una palabra oculta
@@ -149,7 +200,7 @@ def adivinarLetra(palabra, palabraOculta, letrasAdivinadas, letra):
         return palabraOculta, False  # La letra no está en la palabra
 #es la ejecucion del juego para un jugador. se llama desde el inicio de un jugador, se tratada la unificaion de todas las funciones antariores.
 def juego1():
-    palabra = buscarPalabraAleat(palabras).upper()
+    palabra = opcionesDePalabras(palabras)
     palabraOculta, letrasAdivinadas, intentosRestantes = inicializarJuego(palabra)
 
     while True:
