@@ -1,15 +1,23 @@
 #primero definimos la funcion random
 import random
+
 #menu principal
 #su entrada es el numero de jugadores, y su salida es elegir el inicio del juego 1 o juego 2
 def menu1():
     print("---¡Bienvenido!---")
     print("Introduce 'S' para salir ")
+    print("Para leer instrucciones pulse 3")
     n_jugadores=int(input("Introduce el numero de jugadores: "))
     if n_jugadores==1:
         inicio1() #llamar a la funcion de un jugador
     elif n_jugadores==2:
         inicio2()#llamar a la funcion de dos jugadores
+    elif n_jugadores==3:#abre y lee las instrucciones
+        file_instrucciones='intrucciones.txt'
+        with open(file_instrucciones,"r") as file:
+            contenido=file.read()
+            print(f"Contenido de {file_instrucciones}:\n{contenido}")
+        menu1()
     else:
         print("Error \nintentelo de nuevo")
         menu1()
@@ -28,7 +36,7 @@ def inicio1():
         inicio1()
 #inicio del juego multijugador
 def inicio2():
-    print ("MODO multiJUGADOR")
+    print ("---MODO multiJUGADOR---")
     print ("Bienvenidos")
     print ("¿Quiereis continuar?")
     n=int(input("1. si \t 2. no \n")) #no tengo muy claro si se puede definir la misma variable que en el anterior
@@ -132,7 +140,6 @@ def menuOpcionesDePalabras():
     print('8.Instrumentos')
     print('9.Elementos Naturales')
     print('10.Dificiles')
-    print('11.Aleatorio')
 #la siguiente funcion despliegla el menu de palabras que hay, recoge la elecion del usuario y termina eligiendo la palabra oculta final
 def opcionesDePalabras(palabras):
     menuOpcionesDePalabras()
@@ -157,8 +164,6 @@ def opcionesDePalabras(palabras):
         lista=palabras[8]
     elif eleccion==10:
         lista=palabras[9]
-    elif eleccion==11:
-        lista=random.randint(0,len(palabras)-1)
     else:
         print('¡¡¡¡¡¡¡¡¡¡error!!!!!!!!!!!')
     return buscarPalabraAleat(lista)
@@ -206,19 +211,55 @@ def juego1():
     while True:
         print(AHORCADO[len(AHORCADO) - intentosRestantes - 1])
         print(f"Palabra: {mostrarPalabra(palabra, letrasAdivinadas)}")
-        letra = input("Ingresa una letra: ").upper()
+        letra = input("Ingresa una letra: ").lower()
 
         palabraOculta, acierto = adivinarLetra(palabra, palabraOculta, letrasAdivinadas, letra)
         if acierto:
             letrasAdivinadas.append(letra)
         else:
             intentosRestantes -= 1
-
         if palabraOculta == palabra:
             print("¡Ganaste! La palabra era:", palabra)
             break
         elif intentosRestantes == 0:
+            print(AHORCADO[6])
             print("¡Perdiste! La palabra era:", palabra)
             break
-
+#En esta funcion, se ejecuta el juego para dos, he tenido que añadir otro inicio del juego tambien para que pudiera funcionar bien
+def juego2():
+    nombre1 = input("Ingrese el nombre del primer jugador: ")
+    nombre2 = input("Ingrese el nombre del segundo jugador: ")
+    palabra = opcionesDePalabras(palabras)
+    palabraOculta, letrasAdivinadas, intentosRestantes1, intentosRestantes2 = inicializarJuego2(palabra)
+    j=0
+    while True:
+        print(f"Palabra: {mostrarPalabra(palabra, letrasAdivinadas)}")
+        if (j % 2 == 0):
+            print(AHORCADO[len(AHORCADO) - intentosRestantes1 - 1])
+            letra = input(f"{nombre1}, ingresa una letra: ").lower()
+            intentosRestantes1 -= 1
+        else:
+            print(AHORCADO[len(AHORCADO) - intentosRestantes2 - 1])
+            letra = input(f"{nombre2}, ingresa una letra: ").lower()
+            intentosRestantes2 -= 1
+        palabraOculta, acierto = adivinarLetra(palabra, palabraOculta, letrasAdivinadas, letra)
+        if acierto:
+            letrasAdivinadas.append(letra)
+        if palabraOculta == palabra:
+            print(f"¡Ganaste, {nombre1}! La palabra era:", palabra)
+            break
+        elif intentosRestantes1 == 0:
+            print(f"¡Ganaste, {nombre2}! La palabra era:", palabra)
+            break
+        elif intentosRestantes2 == 0:
+            print(f"¡Ganaste, {nombre1}! La palabra era:", palabra)
+            break
+        j+=1
+#es una adaptacion de iniciarjuego2 para que pueda correr con dos personas
+def inicializarJuego2(palabra):
+    palabraOculta = '_' * len(palabra) #transforma la palabra en una palabra oculta
+    letrasAdivinadas = [] #para las letras que si son adivinadas
+    intentosRestantes1 = len(AHORCADO) - 1# Numero de intentos restantes
+    intentosRestantes2= len(AHORCADO)-1
+    return palabraOculta, letrasAdivinadas, intentosRestantes1, intentosRestantes2
 menu1()
