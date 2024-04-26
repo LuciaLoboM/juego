@@ -1,0 +1,10 @@
+'-------INSTRUCCIONES--------'
+
+'1. Elige el modo de jugador, individual o multijudor'
+'2. Elige la categoria de la palabra a la que se quiere jugar'
+'3. COMIENZA'
+'4. Elige una letra que crees que puede contener tu palabra oculta'
+'5. Adivina la palabra o perderás'
+'Diviertete jugando al ahorcado, de esta manera podras aprender un mayor vocabulario'
+'DATO CURIOSO: las raices del juego del ahorcado vienen de Inlaterra'
+'Es una forma de practicar la logica'
